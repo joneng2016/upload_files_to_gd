@@ -3,21 +3,15 @@
 require "vendor/autoload.php";
 require "helper/helper.php";
 
-// use App\Service\GoogleDriveApiService;
+use App\Service\GoogleApiService;
+use App\Bootstrap\Bootstrap;
 use App\Log\Log as log;
 
 log::info("start application");
-
 log::info("read .env file");
-    
-if (!read_env()) {
-    log::error(".env not found");
-    return false;
-}
 
-log::info("env readed with success");
+Bootstrap::run();
 
-//$googleDrieApiConnection = new GoogleDriveApiService();
+$googleDrieApiConnection = new GoogleApiService();
 
-//$googleDrieApiConnection->readCredentials();
-//$googleDrieApiConnection->startConnection();
+$googleDrieApiConnection->startConnection();
