@@ -4,6 +4,8 @@ namespace App\Service;
 
 use App\Artefacts\ContextGoogleDriveApiConnection;
 
+use GuzzleHttp\Client;
+
 use Google_Client;
 use Google_Service_Drive;
 
@@ -20,6 +22,9 @@ class GoogleApiService {
         $credentials = read_position_application() ."\credentials" . '\credentials.json';
         
         $this->context->client = new Google_Client();
+
+        $this->context->client->setHttpClient(new Client(['verify' => false]));
+
         $this->context->client->setApplicationName('Google Drive API PHP Quickstart');
         $this->context->client->setScopes(Google_Service_Drive::DRIVE);
         $this->context->client->setAuthConfig($credentials);
@@ -39,8 +44,8 @@ class GoogleApiService {
                 print 'Enter verification code: ';
                 $authCode = trim(fgets(STDIN));
 
-                // Exchange authorization code for an access token.
-                $accessToken = $this->context->client->fetchAccessTokenWithAuthCode($authCode);
+                    // Exchange authorization code for an access token.
+                    $accessToken = $this->context->client->fetchAccessTokenWithAuthCode($authCode);
                 $this->context->client->setAccessToken($accessToken);
 
                 // Check to see if there was an error.
