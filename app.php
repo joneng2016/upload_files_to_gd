@@ -12,6 +12,6 @@ log::info("read .env file");
 
 Bootstrap::run();
 
-$googleDrieApiConnection = new GoogleApiService();
+$googleDriveApiConnection = new GoogleApiService();
 
-$googleDrieApiConnection->startConnection();
+$googleDriveApiConnection->startConnection();
