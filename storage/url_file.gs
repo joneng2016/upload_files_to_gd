@@ -1,0 +1,1 @@
+https://accounts.google.com/o/oauth2/auth?response_type=code&access_type=offline&client_id=281452920953-fi321gok2ahncbgensihu07u2dnreu0e.apps.googleusercontent.com&redirect_uri=urn%3Aietf%3Awg%3Aoauth%3A2.0%3Aoob&state&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive&prompt=select_account%20consent

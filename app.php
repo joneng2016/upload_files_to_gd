@@ -15,3 +15,4 @@ Bootstrap::run();
 $googleDriveApiConnection = new GoogleApiService();
 
 $googleDriveApiConnection->startConnection();
+$googleDriveApiConnection->loadDataThatHappensUpload();

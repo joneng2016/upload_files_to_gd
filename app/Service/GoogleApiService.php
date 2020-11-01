@@ -12,9 +12,11 @@ use Google_Service_Drive;
 class GoogleApiService {
 
     private $context;
+    private $tokenPath;
 
     public function __construct() {
         $this->context = new ContextGoogleDriveApiConnection();
+        $this->tokenPath = read_position_application() . '\storage\token.gs';
     }
 
     public function startConnection() {
@@ -30,37 +32,37 @@ class GoogleApiService {
         $this->context->client->setAuthConfig($credentials);
         $this->context->client->setAccessType('offline');
         $this->context->client->setPrompt('select_account consent');
+    
         
         if ($this->context->client->isAccessTokenExpired()) {
-            // Refresh the token if possible, else fetch a new one.
-
 
             if ($this->context->client->getRefreshToken()) {
                 $this->context->client->fetchAccessTokenWithRefreshToken($this->context->client->getRefreshToken());
             } else {
-                // Request authorization from the user.
+
                 $authUrl = $this->context->client->createAuthUrl();
+                $addressOfFile = write_url_to_access($authUrl);
+                
+                printf("Um ariquivo foi salvo em {$addressOfFile} - acesse o arquivo, abra a url no navegador");
+                printf("Após isso, no mesmo diretório, crie um arquivo chamado token.gs e salve o token ali");
+                print "Após fazer isso, pressione Enter";
+                
+                fgets(STDIN);
 
-                printf("Open the following link in your browser:\n%s\n", $authUrl);
-                print 'Enter verification code: ';
-
-                $authCode = trim(fgets(STDIN));
-
+                $authCode = read_file($this->tokenPath);
                 $accessToken = $this->context->client->fetchAccessTokenWithAuthCode($authCode);
-
+                
                 $this->context->client->setAccessToken($accessToken);
-
-
             }
-            // Save the token to a file.
-            if (!file_exists(dirname($tokenPath))) {
-                mkdir(dirname($tokenPath), 0700, true);
-            }
-
-            dd($this->context->client->getAccessToken());
-            file_put_contents($tokenPath, json_encode($this->context->client->getAccessToken()));
+ 
+            if (!file_exists(dirname($this->tokenPath)))
+                mkdir(dirname($this->tokenPath), 0700, true);
+ 
+            file_put_contents($this->tokenPath, json_encode($this->context->client->getAccessToken()));
         }
-
-        dd($this->context);
     }
+
+    public function loadDataThatHappensUpload() {
+        
+    } 
 }

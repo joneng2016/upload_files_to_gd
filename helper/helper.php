@@ -81,3 +81,14 @@ function authTwoDotZero($context) {
     
     return $r;
 } 
+
+function write_url_to_access($url) {    
+    
+    $whereApplicaton = read_position_application() . "\storage\url_file.gs";
+
+    $file = fopen($whereApplicaton,"w");
+    fwrite($file,$url);
+    fclose($file);
+    
+    return $whereApplicaton;
+}
