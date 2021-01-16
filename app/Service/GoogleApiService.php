@@ -2,67 +2,35 @@
 
 namespace App\Service;
 
-use App\Artefacts\ContextGoogleDriveApiConnection;
+use App\Artefacts\TextosDaAplicacao as texts;
 
-use GuzzleHttp\Client;
+use App\Factory\FactoryContexto as factContexto;
 
-use Google_Client;
-use Google_Service_Drive;
+use App\Log\Log as log; 
+
+use App\Service\TraitGoogleApiService;
+
+use App\Service\TraitGoogleApiService\StartConnectionTrait;
+use App\Service\TraitGoogleApiService\LoadDataThatHappensUploadTrait;
+use App\Service\TraitGoogleApiService\BuildFileWithRelationThatIsOkTrait;
 
 class GoogleApiService {
 
     private $context;
     private $tokenPath;
+    private $log;
 
     public function __construct() {
-        $this->context = new ContextGoogleDriveApiConnection();
+
+        $this->context = factContexto::start()->contextGoogleDriveApiConnection();
         $this->tokenPath = read_position_application() . '\storage\token.gs';
+        $this->text = texts::start();
+        $this->log = log::start();
+
     }
 
-    public function startConnection() {
-
-        $credentials = read_position_application() ."\credentials" . '\credentials.json';
-        
-        $this->context->client = new Google_Client();
-
-        $this->context->client->setHttpClient(new Client(['verify' => false]));
-
-        $this->context->client->setApplicationName('Google Drive API PHP Quickstart');
-        $this->context->client->setScopes(Google_Service_Drive::DRIVE);
-        $this->context->client->setAuthConfig($credentials);
-        $this->context->client->setAccessType('offline');
-        $this->context->client->setPrompt('select_account consent');
-    
-        
-        if ($this->context->client->isAccessTokenExpired()) {
-
-            if ($this->context->client->getRefreshToken()) {
-                $this->context->client->fetchAccessTokenWithRefreshToken($this->context->client->getRefreshToken());
-            } else {
-
-                $authUrl = $this->context->client->createAuthUrl();
-                $addressOfFile = write_url_to_access($authUrl);
-                
-                printf("Um ariquivo foi salvo em {$addressOfFile} - acesse o arquivo, abra a url no navegador");
-                printf("Após isso, no mesmo diretório, crie um arquivo chamado token.gs e salve o token ali");
-                print "Após fazer isso, pressione Enter";
-                
-                fgets(STDIN);
-
-                $authCode = read_file($this->tokenPath);
-                $accessToken = $this->context->client->fetchAccessTokenWithAuthCode($authCode);
-                
-                $this->context->client->setAccessToken($accessToken);
-            }
- 
-            if (!file_exists(dirname($this->tokenPath)))
-                mkdir(dirname($this->tokenPath), 0700, true);
- 
-            file_put_contents($this->tokenPath, json_encode($this->context->client->getAccessToken()));
-        }
-    }
-
-    public function loadDataThatHappensUpload() {
-        
-    } 
+    use StartConnectionTrait;
+    use LoadDataThatHappensUploadTrait;
+    use BuildFileWithRelationThatIsOkTrait;
+     
 }

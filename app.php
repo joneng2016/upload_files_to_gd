@@ -3,16 +3,21 @@
 require "vendor/autoload.php";
 require "helper/helper.php";
 
-use App\Service\GoogleApiService;
+use App\Artefacts\TextosDaAplicacao as texts;
+use App\Factory\FactoryService;
 use App\Bootstrap\Bootstrap;
 use App\Log\Log as log;
 
-log::info("start application");
-log::info("read .env file");
+$text = texts::start();
+$factoryService = FactoryService::start();
+
+log::start()->info($text->startApplication);
+log::start()->info($text->readEnvFile);
 
 Bootstrap::run();
 
-$googleDriveApiConnection = new GoogleApiService();
+$googleDriveApiConnection = $factoryService->googleApiService();
 
 $googleDriveApiConnection->startConnection();
 $googleDriveApiConnection->loadDataThatHappensUpload();
+$googleDriveApiConnection->buildFileWithRelationThatIsOkTrait();

@@ -92,3 +92,20 @@ function write_url_to_access($url) {
     
     return $whereApplicaton;
 }
+
+function whereRejetEnterInDir($element) {
+    if ($element == ".\\")
+        return false;
+    if ($element == "..\\")
+        return false;
+    if ($element == "./")
+        return false; 
+    if ($element == "../")
+        return false;
+    if ($element == ".")
+        return false;
+    if ($element == "..")
+        return false;
+    
+    return true;
+}
