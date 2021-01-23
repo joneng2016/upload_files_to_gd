@@ -38,12 +38,12 @@ trait StartConnectionTrait {
 
             } else {
 
-                $authUrl = $this->context->client->createAuthUrl();
-                $addressOfFile = write_url_to_access($authUrl);
+//                $authUrl = $this->context->client->createAuthUrl();
+//                $addressOfFile = write_url_to_access($authUrl);
                 
-                $this->log->info($this->text->textoAcessoArquivoUrl($addressOfFile));
+//                $this->log->info($this->text->textoAcessoArquivoUrl($addressOfFile));
 
-                fgets(STDIN);
+//                fgets(STDIN);
 
 //                $authCode = read_file($this->tokenPath);
 //                $accessToken = $this->context->client->fetchAccessTokenWithAuthCode($authCode);

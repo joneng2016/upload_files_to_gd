@@ -13,7 +13,9 @@ trait BuildFileWithRelationThatIsOkTrait {
 		$this->context->stateFile = FactoryHelper::start()->stateFile();
 
 //		if(!$this->context->stateFile->thisFileExiste()) {
-						 
+			
+			dd($this->context->fileProcess);		 
+			$this->context->stateFile->thisFileExiste();
 			$this->context->stateFile->setInformation(
 				$this->context->fileProcess->getFiles()
 			);

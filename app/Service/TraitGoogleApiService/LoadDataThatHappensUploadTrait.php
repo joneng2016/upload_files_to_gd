@@ -15,6 +15,8 @@ trait LoadDataThatHappensUploadTrait {
         	$this->context->addressRead
         );
 
+		$this->context->fileProcess->listFiles();
+
     }
 
 }

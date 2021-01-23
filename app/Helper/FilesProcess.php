@@ -24,9 +24,9 @@ class FilesProcess {
 			$baseAddress = $this->baseAddress;
 		else 
 			$baseAddress = $args[0];
-
+		
 		$dirScannned = scandir($baseAddress);
-
+		
 		foreach($dirScannned as $element) {
 			
 			log::start()->info("{$baseAddress}\\{$element}\n");

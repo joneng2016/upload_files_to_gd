@@ -30,6 +30,7 @@ class StateFile {
 	}
 
 	public function writeInformationOnAddressFile() {
+
 		var_dump($this->information);
 	}
 }
