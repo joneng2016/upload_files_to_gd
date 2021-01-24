@@ -45,5 +45,11 @@ class FilesProcess {
 
 	public function getFiles() {
 		return $this->files;
-	}	
+	}
+
+
+	public function mapMySelf($callBack) {
+		return array_map($callBack, $this->files);
+	}
+
 }

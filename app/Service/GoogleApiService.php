@@ -8,11 +8,10 @@ use App\Factory\FactoryContexto as factContexto;
 
 use App\Log\Log as log; 
 
-use App\Service\TraitGoogleApiService;
-
 use App\Service\TraitGoogleApiService\StartConnectionTrait;
 use App\Service\TraitGoogleApiService\LoadDataThatHappensUploadTrait;
 use App\Service\TraitGoogleApiService\BuildFileWithRelationThatIsOkTrait;
+use App\Service\TraitGoogleApiService\UploadFileGoogleApiTrait;
 
 class GoogleApiService {
 
@@ -32,5 +31,6 @@ class GoogleApiService {
     use StartConnectionTrait;
     use LoadDataThatHappensUploadTrait;
     use BuildFileWithRelationThatIsOkTrait;
+    use UploadFileGoogleApiTrait;
      
 }

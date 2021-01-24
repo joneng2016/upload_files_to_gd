@@ -11,6 +11,8 @@ class TextosDaAplicacao {
 	public $startNewToken = "token foi expirado, iniciando novo token";
 	public $readFilesThatWillBeUploaded = "Iniciando leitura dos arquivo que subirão";
 	public $buildProcessFileOrientation = "Criando e/ou Processando o arquivo de orientação de remoção dos dados";
+	public $criadoArquivo = "Arquivo não existe, criando e escrevedo dados no arquivo";
+	public $arquivoExiste = "Esse arquivo já existe, sem necessidade de criar";
 
 	public static $instance;
 	
