@@ -33,5 +33,12 @@ class TextosDaAplicacao {
 
 		return "Um arquivo foi salvo em {$addressOfFile} - acesse o arquivo, abra a url no navegador Após isso, no mesmo diretório, crie um arquivo chamado token.gs e salve o token ali Após fazer isso, pressione Enter";
 	}
+
+	public function addressOfFileMsgUploadOk($address) {
+		return "{$address} - subio ao GoogleDrive com sucesso";
+	}
 	
+		public function existOnGoogleDrive($address) {
+		return "{$address} - neste parent_id, com base na lista, esse arquivo já existe e não há necessidade de subir noamente";
+	}
 }

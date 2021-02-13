@@ -15,11 +15,11 @@ trait UploadFileGoogleApiTrait {
 
 			$posName = explode("\\",$address);			
 			$name = $posName[sizeof($posName)-1];
-			
-
+				
 			$file = new Google_Service_Drive_DriveFile($this->context->client);			
+
 			$file->setName("{$name}");
-			$file->setParents(["1yITaW-C_ECskm-n6fXOQAiP5IwfPdMpp"]);
+			$file->setParents([env("PARENT_ID")]);
 
 			$this->context->service->files->create(
 				$file,
@@ -30,7 +30,8 @@ trait UploadFileGoogleApiTrait {
 				]
 			);
 
-			dd("*");
+			// $this->context->stateFile->findSpecificFileAndChangeStatus($address);
+			$this->log->info($this->text->addressOfFileMsgUploadOk($address));
 
 		});
 

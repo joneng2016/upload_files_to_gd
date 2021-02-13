@@ -2,6 +2,7 @@
 
 require "vendor/autoload.php";
 require "helper/helper.php";
+require "general_set/general_set_information.php";
 
 use App\Artefacts\TextosDaAplicacao as texts;
 use App\Factory\FactoryService;

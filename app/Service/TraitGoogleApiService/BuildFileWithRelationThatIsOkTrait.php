@@ -11,7 +11,7 @@ trait BuildFileWithRelationThatIsOkTrait {
 		$this->log->info($this->text->buildProcessFileOrientation);
 
 		$this->context->stateFile = FactoryHelper::start()->stateFile();
-
+/*
 		if(!$this->context->stateFile->thisFileExiste()) {
 
 			$this->log->info($this->text->criadoArquivo);			
@@ -25,7 +25,7 @@ trait BuildFileWithRelationThatIsOkTrait {
 			$this->context->stateFile->writeInformationOnAddressFile();
 
 		} else $this->log->info($this->text->arquivoExiste);
-
+*/
 	}
 
 }

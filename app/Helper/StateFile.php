@@ -74,4 +74,23 @@ class StateFile {
 		$this->onlyAlterFile();
 
 	}
+
+
+	public function seeIfIsOK($findFile) {
+
+		$this->file = fopen($this->addressFile,"r");
+		$fileReaded = fread($this->file, filesize($this->addressFile));
+		$content = explode("\n",$fileReaded);
+		
+		foreach($content as $key => $line) {
+
+			$words = explode("#",$line);
+			
+
+			if ($words[1] == "OK") 
+				return true;
+		}
+
+		return false;
+	}
 }
