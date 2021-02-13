@@ -23,5 +23,6 @@ class GlobalSet {
 
 	public function run() {
 		$_ENV["PASTA_LEITURA"] = "C:\\Users\\FRANCIELE\\Pictures";
+		$_ENV["WRITE_STATE_FILE"] = "C:\\Users\\FRANCIELE\\upload_files_to_gd\\storage\\state_file";
 	}
 }

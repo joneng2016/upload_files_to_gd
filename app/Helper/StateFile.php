@@ -1,4 +1,4 @@
-<?php
+	<?php
 
 namespace App\Helper;
  
@@ -10,14 +10,10 @@ class StateFile {
 	private $informationString = "";
 	private $file;
 
-	public function __construct() {
-		$this->nameFile = env("FILE_WHERE_SAVE_STATE");
-	}
-
 	public function thisFileExiste() {
 
 		$nameFile = $this->nameFile; 
-		$this->addressFile = __DIR__ .  "\..\..\storage\\{$nameFile}";
+		$this->addressFile = env("WRITE_STATE_FILE");
 
 		return file_exists($this->addressFile);
 	}
@@ -28,6 +24,7 @@ class StateFile {
 	}
 
 	public function createFile() {
+
 		$this->file = fopen($this->addressFile,"w");
 	}
 
@@ -38,7 +35,7 @@ class StateFile {
 
 		fwrite($this->file,$this->informationString);
 		fclose($this->file);
-
+		
 	}
 
 	public function onlyAlterFile() {
@@ -57,8 +54,10 @@ class StateFile {
 
 		$this->file = fopen($this->addressFile,"r");
 		$fileReaded = fread($this->file, filesize($this->addressFile));
-		$content = explode("\n",$fileReaded);
+		fclose($this->file);
 		
+		$content = explode("\n",$fileReaded);
+
 		foreach($content as $key => $line) {
 
 			$words = explode("#",$line);
@@ -80,6 +79,8 @@ class StateFile {
 
 		$this->file = fopen($this->addressFile,"r");
 		$fileReaded = fread($this->file, filesize($this->addressFile));
+		fclose($this->file);
+		
 		$content = explode("\n",$fileReaded);
 		
 		foreach($content as $key => $line) {

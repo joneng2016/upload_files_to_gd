@@ -13,25 +13,29 @@ trait UploadFileGoogleApiTrait {
 
 		$this->context->fileProcess->mapMySelf(function($address){	
 
-			$posName = explode("\\",$address);			
-			$name = $posName[sizeof($posName)-1];
-				
-			$file = new Google_Service_Drive_DriveFile($this->context->client);			
+			if (!$this->context->stateFile->seeIfIsOK($address)) {
 
-			$file->setName("{$name}");
-			$file->setParents([env("PARENT_ID")]);
+				$posName = explode("\\",$address);			
+				$name = $posName[sizeof($posName)-1];
+					
+				$file = new Google_Service_Drive_DriveFile($this->context->client);			
 
-			$this->context->service->files->create(
-				$file,
-				[
-					"data" => file_get_contents($address),
-					"mimeType" => "application/octet-stream",
-					"uploadType" => "multipart"
-				]
-			);
+				$file->setName("{$name}");
+				$file->setParents([env("PARENT_ID")]);
 
-			// $this->context->stateFile->findSpecificFileAndChangeStatus($address);
-			$this->log->info($this->text->addressOfFileMsgUploadOk($address));
+				$this->context->service->files->create(
+					$file,
+					[
+						"data" => file_get_contents($address),
+						"mimeType" => "application/octet-stream",
+						"uploadType" => "multipart"
+					]
+				);
+
+				$this->context->stateFile->findSpecificFileAndChangeStatus($address);
+				$this->log->info($this->text->addressOfFileMsgUploadOk($address));
+
+			}
 
 		});
 
